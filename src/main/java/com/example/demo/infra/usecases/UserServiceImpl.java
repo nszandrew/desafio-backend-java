@@ -1,4 +1,4 @@
-package com.example.demo.infra.usecase;
+package com.example.demo.infra.usecases;
 
 import com.example.demo.adapters.repository.UserRepository;
 import com.example.demo.adapters.service.UserService;
@@ -9,6 +9,7 @@ import com.example.demo.exceptions.custom.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,7 +29,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO data) {
         logger.info("Adicionando um novo usuario {}", data.nome() );
-        User newUser = new User(data);
+        String encryptedPass = new BCryptPasswordEncoder().encode(data.senha());
+
+        User newUser = new User(data.nome(), data.email(), encryptedPass);
         repository.save(newUser);
         return new UserResponseDTO(data.nome(), data.email(), LocalDateTime.now());
     }

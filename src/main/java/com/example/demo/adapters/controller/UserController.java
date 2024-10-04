@@ -1,10 +1,10 @@
 package com.example.demo.adapters.controller;
 
 import com.example.demo.adapters.service.UserService;
-import com.example.demo.domain.User;
-import com.example.demo.domain.dto.AuthDTO;
-import com.example.demo.domain.dto.UserRequestDTO;
-import com.example.demo.domain.dto.UserResponseDTO;
+import com.example.demo.entity.User;
+import com.example.demo.entity.dto.AuthDTO;
+import com.example.demo.entity.dto.UserRequestDTO;
+import com.example.demo.entity.dto.UserResponseDTO;
 import com.example.demo.infra.security.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -56,8 +56,8 @@ public class UserController {
     )
     @PostMapping("/registro")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
-        userService.createUser(userRequestDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+       var createdUser = userService.createUser(userRequestDTO);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
 
@@ -67,7 +67,7 @@ public class UserController {
             responses = {
                     @ApiResponse(
                             description = "Login feito com sucesso com sucesso",
-                            responseCode = "201",
+                            responseCode = "200",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthDTO.class))
                     ),
                     @ApiResponse(
@@ -97,7 +97,7 @@ public class UserController {
             responses = {
                     @ApiResponse(
                             description = "Usuário encontrado com sucesso",
-                            responseCode = "201",
+                            responseCode = "200",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
                     ),
                     @ApiResponse(
@@ -123,7 +123,7 @@ public class UserController {
             responses = {
                     @ApiResponse(
                             description = "Usuário atualizado com sucesso",
-                            responseCode = "201",
+                            responseCode = "200",
                             content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))
                     ),
                     @ApiResponse(
@@ -148,7 +148,7 @@ public class UserController {
             responses = {
                     @ApiResponse(
                             description = "Usuário deletado com sucesso",
-                            responseCode = "201"
+                            responseCode = "204"
                     ),
                     @ApiResponse(
                             description = "Dados inválidos ou token não autorizado",

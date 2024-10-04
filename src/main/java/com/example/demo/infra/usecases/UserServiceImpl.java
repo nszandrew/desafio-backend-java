@@ -2,9 +2,9 @@ package com.example.demo.infra.usecases;
 
 import com.example.demo.adapters.repository.UserRepository;
 import com.example.demo.adapters.service.UserService;
-import com.example.demo.domain.User;
-import com.example.demo.domain.dto.UserRequestDTO;
-import com.example.demo.domain.dto.UserResponseDTO;
+import com.example.demo.entity.User;
+import com.example.demo.entity.dto.UserRequestDTO;
+import com.example.demo.entity.dto.UserResponseDTO;
 import com.example.demo.exceptions.custom.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
         User newUser = new User(data.nome(), data.email(), encryptedPass);
         repository.save(newUser);
-        return new UserResponseDTO(data.nome(), data.email(), LocalDateTime.now());
+        return new UserResponseDTO(newUser.getId() ,data.nome(), data.email(), LocalDateTime.now());
     }
 
     @Override
@@ -43,14 +43,14 @@ public class UserServiceImpl implements UserService {
         var newUser = repository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario não encontrado"));
         newUser.updateUser(userDTO);
         repository.save(newUser);
-        return new UserResponseDTO(userDTO.nome(), userDTO.email(), LocalDateTime.now());
+        return new UserResponseDTO(newUser.getId(), userDTO.nome(), userDTO.email(), LocalDateTime.now());
     }
 
     @Override
     public UserResponseDTO getUserById(Long id) {
         logger.info("Pegando um usuario pelo id: {}", id);
         var user = repository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario não encontrado"));
-        return new UserResponseDTO(user.getNome(), user.getEmail(), user.getDataCriacao());
+        return new UserResponseDTO(user.getId(), user.getNome(), user.getEmail(), user.getDataCriacao());
     }
 
     @Override

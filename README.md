@@ -53,19 +53,19 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 
 2. **Abra o CMD na pasta que está o Dockerfile**
 
-3. **Inicie os contêineres: ** 
+3. **Inicie os contêineres:** 
 
    ```bash
    docker build -t api-spring .
    ```
-4. **Verifique se a imagem está baixada e copie o id da imagem: ** 
+4. **Verifique se a imagem está baixada e copie o id da imagem:** 
 
    ```bash
    docker images
    ```
    ![image](https://github.com/user-attachments/assets/f1d2700f-ed66-4b23-b5f1-93b712d959a9)
 
-5. **Verifique se a imagem está baixada e pegue o id da imagem: ** 
+5. **Verifique se a imagem está baixada e pegue o id da imagem:** 
 
    ```
    docker run -p 8080:8080 {imagem que voce copiou}

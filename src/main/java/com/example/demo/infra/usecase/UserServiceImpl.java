@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         logger.info("Adicionando um novo usuario {}", data.nome() );
         User newUser = new User(data);
         repository.save(newUser);
-        return new UserResponseDTO(data.nome(), data.email());
+        return new UserResponseDTO(data.nome(), data.email(), LocalDateTime.now());
     }
 
     @Override
@@ -40,14 +40,14 @@ public class UserServiceImpl implements UserService {
         var newUser = repository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario não encontrado"));
         newUser.updateUser(userDTO);
         repository.save(newUser);
-        return new UserResponseDTO(userDTO.nome(), userDTO.email());
+        return new UserResponseDTO(userDTO.nome(), userDTO.email(), LocalDateTime.now());
     }
 
     @Override
     public UserResponseDTO getUserById(Long id) {
         logger.info("Pegando um usuario pelo id: {}", id);
         var user = repository.findById(id).orElseThrow(() -> new UserNotFoundException("Usuario não encontrado"));
-        return new UserResponseDTO(user.getNome(), user.getEmail());
+        return new UserResponseDTO(user.getNome(), user.getEmail(), user.getDataCriacao());
     }
 
     @Override

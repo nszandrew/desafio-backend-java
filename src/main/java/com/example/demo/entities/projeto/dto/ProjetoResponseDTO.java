@@ -4,5 +4,4 @@ import java.util.List;
 
 public record ProjetoResponseDTO(Long id, String nome, String descricao, java.time.LocalDateTime dataCriacao,
                                  java.time.LocalDateTime dataUpdate,
-                                 List<MetasDTO> metas) {
-}
+                                 List<MetasDTO> metas) {}

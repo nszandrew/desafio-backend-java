@@ -49,6 +49,10 @@ public class UserController {
                             responseCode = "403"
                     ),
                     @ApiResponse(
+                            description = "Email já cadastrado ou não autorizado!",
+                            responseCode = "409"
+                    ),
+                    @ApiResponse(
                             description = "Erro de validação nos dados enviados",
                             responseCode = "400"
                     )

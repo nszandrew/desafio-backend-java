@@ -1,10 +1,10 @@
 package com.example.demo.adapters.controller;
 
 import com.example.demo.adapters.service.UserService;
-import com.example.demo.entity.User;
-import com.example.demo.entity.dto.AuthDTO;
-import com.example.demo.entity.dto.UserRequestDTO;
-import com.example.demo.entity.dto.UserResponseDTO;
+import com.example.demo.entities.user.User;
+import com.example.demo.entities.user.dto.AuthDTO;
+import com.example.demo.entities.user.dto.UserRequestDTO;
+import com.example.demo.entities.user.dto.UserResponseDTO;
 import com.example.demo.infra.security.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

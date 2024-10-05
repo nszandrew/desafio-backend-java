@@ -2,6 +2,7 @@ package com.example.demo.exceptions;
 
 import com.example.demo.exceptions.custom.EmailAlreadyExistsException;
 import com.example.demo.exceptions.custom.PasswordLenghtException;
+import com.example.demo.exceptions.custom.ProjetoNotFoundException;
 import com.example.demo.exceptions.custom.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,5 +46,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), "Password precisa de no minimo 6 caracteres");
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_ACCEPTABLE);
+    }
+    @ExceptionHandler(ProjetoNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> ProjetoNotFoundExceptions(Exception ex){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.NOT_FOUND, ex.getMessage(), "Projeto nao encontrado exception");
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 }

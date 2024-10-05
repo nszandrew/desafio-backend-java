@@ -1,6 +1,7 @@
-package com.example.demo.entity;
+package com.example.demo.entities.user;
 
-import com.example.demo.entity.dto.UserRequestDTO;
+import com.example.demo.entities.projeto.Projeto;
+import com.example.demo.entities.user.dto.UserRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,6 +38,10 @@ public class User implements UserDetails {
 
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Projeto> projetos;
+
 
     public User(String nome, String email, String senha) {
         this.nome = nome;

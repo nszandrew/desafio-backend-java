@@ -108,81 +108,198 @@ A API está documentada usando Swagger/OpenAPI, permitindo que você explore e t
    - A coleção importada contém todos os endpoints da API.
    - Ajuste as variáveis conforme necessário.
 
+
 ## Endpoints da API
 
-Abaixo está um resumo dos principais endpoints disponíveis na API:
+### Criar um novo usuário
+`POST /api/user/registro`
+- **Descrição:** Cria um novo usuário no banco de dados.
+- **Requisição:** 
+  ```json
+  {
+    "nome": "string",
+    "email": "string",
+    "senha": "string"
+  }
+  ```
+- **Respostas:**
+  - `201`: Usuário criado com sucesso.
+  - `400`: Erro de validação nos dados enviados.
+  - `403`: Token não autorizado.
+  - `409`: Email já cadastrado.
 
-- **Registrar Usuário**
+### Atualizar usuário
+`PUT /api/user/atualizar/{id}`
+- **Descrição:** Atualiza as informações de um usuário existente pelo ID.
+- **Parâmetros:**
+  - `id`: ID do usuário a ser atualizado.
+- **Requisição:**
+  ```json
+  {
+    "nome": "string",
+    "email": "string"
+  }
+  ```
+- **Respostas:**
+  - `200`: Usuário atualizado com sucesso.
+  - `400`: Erro de validação nos dados enviados.
+  - `403`: Token não autorizado.
 
-  - **Método:** `POST`
-  - **Endpoint:** `/api/user/registro`
-  - **Descrição:** Cria um novo usuário.
-  - **Corpo da Requisição:**
+### Deletar usuário
+`DELETE /api/user/deletar/{id}`
+- **Descrição:** Deleta um usuário pelo ID.
+- **Parâmetros:**
+  - `id`: ID do usuário a ser deletado.
+- **Respostas:**
+  - `204`: Usuário deletado com sucesso.
+  - `403`: Token não autorizado.
 
-    ```json
-    {
-      "nome": "Seu Nome",
-      "email": "seu.email@example.com",
-      "senha": "sua_senha"
-    }
-    ```
+### Buscar usuário por ID
+`GET /api/user/get/{id}`
+- **Descrição:** Recupera um usuário pelo ID.
+- **Parâmetros:**
+  - `id`: ID do usuário.
+- **Respostas:**
+  - `200`: Usuário recuperado com sucesso.
+  - `403`: Token não autorizado.
 
-- **Login de Usuário**
+### Login de usuário
+`POST /api/user/login`
+- **Descrição:** Realiza o login de um usuário com email e senha.
+- **Requisição:**
+  ```json
+  {
+    "email": "string",
+    "senha": "string"
+  }
+  ```
+- **Respostas:**
+  - `200`: Login realizado com sucesso.
+  - `400`: Erro de validação nos dados enviados.
+  - `403`: Token não autorizado.
 
-  - **Método:** `POST`
-  - **Endpoint:** `/api/user/login`
-  - **Descrição:** Autentica um usuário e retorna um token JWT.
-  - **Corpo da Requisição:**
+---
 
-    ```json
-    {
-      "email": "seu.email@example.com",
-      "senha": "sua_senha"
-    }
-    ```
+## Endpoints de Projetos
 
-- **Atualizar Usuário**
+### Criar um novo projeto
+`POST /api/projeto`
+- **Descrição:** Cria um novo projeto.
+- **Requisição:**
+  ```json
+  {
+    "nome": "string",
+    "descricao": "string"
+  }
+  ```
+- **Respostas:**
+  - `201`: Projeto criado com sucesso.
+  - `400`: Erro de validação nos dados enviados.
 
-  - **Método:** `PUT`
-  - **Endpoint:** `/api/user/atualizar/{id}`
-  - **Descrição:** Atualiza as informações de um usuário existente.
-  - **Cabeçalho de Autenticação:**
+### Atualizar projeto
+`PUT /api/projeto/{id}`
+- **Descrição:** Atualiza um projeto existente pelo ID.
+- **Parâmetros:**
+  - `id`: ID do projeto a ser atualizado.
+- **Requisição:**
+  ```json
+  {
+    "nome": "string",
+    "descricao": "string"
+  }
+  ```
+- **Respostas:**
+  - `200`: Projeto atualizado com sucesso.
+  - `400`: Erro de validação nos dados enviados.
+  - `404`: Projeto não encontrado.
 
-    ```
-    Authorization: Bearer {seu_token_jwt}
-    ```
+### Excluir projeto
+`DELETE /api/projeto/{id}`
+- **Descrição:** Exclui um projeto pelo ID.
+- **Parâmetros:**
+  - `id`: ID do projeto a ser excluído.
+- **Respostas:**
+  - `204`: Projeto excluído com sucesso.
+  - `404`: Projeto não encontrado.
 
-  - **Corpo da Requisição:**
+### Buscar projeto por ID
+`GET /api/projeto/{id}`
+- **Descrição:** Recupera um projeto pelo ID.
+- **Parâmetros:**
+  - `id`: ID do projeto.
+- **Respostas:**
+  - `200`: Projeto recuperado com sucesso.
+  - `404`: Projeto não encontrado.
 
-    ```json
-    {
-      "nome": "Novo Nome",
-      "email": "novo.email@example.com",
-      "senha": "nova_senha"
-    }
-    ```
+---
 
-- **Obter Usuário por ID**
+## Endpoints de Metas
 
-  - **Método:** `GET`
-  - **Endpoint:** `/api/user/get/{id}`
-  - **Descrição:** Obtém as informações de um usuário pelo ID.
-  - **Cabeçalho de Autenticação:**
+### Criar uma nova meta
+`POST /api/metas/{id}`
+- **Descrição:** Cria uma nova meta para um projeto existente.
+- **Parâmetros:**
+  - `id`: ID do projeto ao qual a meta será adicionada.
+- **Requisição:**
+  ```json
+  {
+    "descricao": "string",
+    "completada": "boolean",
+    "dataLimite": "string (YYYY-MM-DD)"
+  }
+  ```
+- **Respostas:**
+  - `201`: Meta criada com sucesso.
+  - `400`: Erro de validação nos dados enviados.
+  - `404`: Projeto não encontrado.
 
-    ```
-    Authorization: Bearer {seu_token_jwt}
-    ```
+### Atualizar meta
+`PUT /api/metas/{id}`
+- **Descrição:** Atualiza uma meta existente pelo ID.
+- **Parâmetros:**
+  - `id`: ID da meta a ser atualizada.
+- **Requisição:**
+  ```json
+  {
+    "descricao": "string",
+    "completada": "boolean",
+    "dataLimite": "string (YYYY-MM-DD)"
+  }
+  ```
+- **Respostas:**
+  - `200`: Meta atualizada com sucesso.
+  - `400`: Erro de validação nos dados enviados.
+  - `404`: Meta não encontrada.
 
-- **Deletar Usuário**
+### Excluir meta
+`DELETE /api/metas/{id}`
+- **Descrição:** Exclui uma meta pelo ID.
+- **Parâmetros:**
+  - `id`: ID da meta a ser excluída.
+- **Respostas:**
+  - `204`: Meta excluída com sucesso.
+  - `404`: Meta não encontrada.
 
-  - **Método:** `DELETE`
-  - **Endpoint:** `/api/user/deletar/{id}`
-  - **Descrição:** Remove um usuário pelo ID.
-  - **Cabeçalho de Autenticação:**
+### Buscar meta por ID
+`GET /api/metas/{id}`
+- **Descrição:** Recupera uma meta pelo ID.
+- **Parâmetros:**
+  - `id`: ID da meta.
+- **Respostas:**
+  - `200`: Meta recuperada com sucesso.
+  - `404`: Meta não encontrada.
 
-    ```
-    Authorization: Bearer {seu_token_jwt}
-    ```
+---
+
+## Segurança
+Todos os endpoints são protegidos por autenticação JWT. Para acessar a API, você deve incluir o token no cabeçalho da requisição:
+
+```
+Authorization: Bearer <token>
+```
+![image](https://github.com/user-attachments/assets/0a93b15a-5e13-408f-b6f8-e3cb917856b7)
+
+
 
 ## Testes
 
@@ -195,6 +312,7 @@ Para rodar os testes, você pode usar o Maven com o seguinte comando:
 ```bash
 mvn test
 ```
+
 
 ## Contato
 

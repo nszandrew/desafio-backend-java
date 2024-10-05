@@ -1,7 +1,7 @@
 package com.example.demo.adapters.controller;
 
 import com.example.demo.adapters.service.ProjetoService;
-import com.example.demo.entities.projeto.dto.ProjetoDTO;
+import com.example.demo.entities.projeto.dto.ProjetoRequestDTO;
 import com.example.demo.entities.projeto.dto.ProjetoResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class ProjetoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjetoResponseDTO> save(@RequestBody @Valid ProjetoDTO data){
+    public ResponseEntity<ProjetoResponseDTO> save(@RequestBody @Valid ProjetoRequestDTO data){
         var createProjeto = service.createProject(data);
         return new ResponseEntity<>(createProjeto, HttpStatus.CREATED);
     }
@@ -31,7 +31,7 @@ public class ProjetoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProjetoResponseDTO> update(@PathVariable Long id, @RequestBody @Valid ProjetoDTO data){
+    public ResponseEntity<ProjetoResponseDTO> update(@PathVariable Long id, @RequestBody @Valid ProjetoRequestDTO data){
         var updateProject = service.updateProject(data, id);
         return ResponseEntity.ok(updateProject);
     }

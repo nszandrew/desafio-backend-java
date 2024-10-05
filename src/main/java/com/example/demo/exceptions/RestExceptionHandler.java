@@ -1,9 +1,6 @@
 package com.example.demo.exceptions;
 
-import com.example.demo.exceptions.custom.EmailAlreadyExistsException;
-import com.example.demo.exceptions.custom.PasswordLenghtException;
-import com.example.demo.exceptions.custom.ProjetoNotFoundException;
-import com.example.demo.exceptions.custom.UserNotFoundException;
+import com.example.demo.exceptions.custom.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,13 +40,25 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(PasswordLenghtException.class)
     public final ResponseEntity<ExceptionResponse> PasswordLenghtExceptions(Exception ex){
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), "Password precisa de no minimo 6 caracteres");
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.NOT_ACCEPTABLE, ex.getMessage(), "Senha precisa de no minimo 6 caracteres");
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_ACCEPTABLE);
     }
     @ExceptionHandler(ProjetoNotFoundException.class)
     public final ResponseEntity<ExceptionResponse> ProjetoNotFoundExceptions(Exception ex){
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.NOT_FOUND, ex.getMessage(), "Projeto nao encontrado exception");
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(FieldsNotBeNullException.class)
+    public final ResponseEntity<ExceptionResponse> FieldsNotBeNullExceptions(Exception ex){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.BAD_REQUEST, ex.getMessage(), "Campos precisam ser preenchidos exception");
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(MetaNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> MetaNotFoundExceptions(Exception ex){
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), HttpStatus.NOT_FOUND, ex.getMessage(), "Meta nao encontrada exception");
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }

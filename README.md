@@ -99,7 +99,7 @@ A API está documentada usando Swagger/OpenAPI, permitindo que você explore e t
 
 1. **Importe a Coleção:**
 
-   - Na raiz do projeto, você encontrará o arquivo `API Desafio Backend Java - nszandrew Copy.postman_collection.json`. https://github.com/nszandrew/desafio-backend-java/blob/main/API%20Desafio%20Backend%20Java%20-%20nszandrew%20Copy.postman_collection.json
+   - Na raiz do projeto, você encontrará o arquivo `API Desafio Backend Java - nszandrew.postman_collection.json`. https://github.com/nszandrew/desafio-backend-java/blob/main/API%20Desafio%20Backend%20Java%20-%20nszandrew.postman_collection.json
    - Abra o Postman e clique em **Importar**.
    - Selecione o arquivo da coleção.
 
